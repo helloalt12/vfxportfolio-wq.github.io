@@ -61,8 +61,6 @@ body {
   width: 80%; height: 80%;
   overflow-y: auto;
   position: relative;
-
-  /* animasi saat muncul */
   transform: scale(0.8);
   opacity: 0;
   transition: transform 0.3s ease, opacity 0.3s ease;
@@ -89,7 +87,7 @@ body {
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
-.gallery img {
+.gallery video {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
@@ -97,7 +95,7 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.3s;
 }
-.gallery img:hover { transform: scale(1.05); }
+.gallery video:hover { transform: scale(1.05); }
 
 /* ✅ Responsive for mobile */
 @media (max-width: 768px) {
@@ -126,7 +124,6 @@ body {
     height: 100px;
   }
 }
-
   </style>
 </head>
 <body>
@@ -144,13 +141,13 @@ body {
       <button class="close-btn" id="closeGallery">&times;</button>
       <h1 style="text-align:center; margin-bottom:1rem;">My VFX Project</h1>
       <div class="gallery">
-        <!-- contoh gambar -->
-        <img src="screen.png" alt="VFX 1">
-        <img src="vfx2.jpg" alt="VFX 2">
-        <img src="vfx3.jpg" alt="VFX 3">
-        <img src="vfx4.jpg" alt="VFX 4">
-        <img src="vfx5.jpg" alt="VFX 5">
-        <img src="vfx6.jpg" alt="VFX 6">
+        <!-- semua video autoplay, muted, loop -->
+        <video src="vfx1.mp4" autoplay muted loop playsinline></video>
+        <video src="vfx2.mp4" autoplay muted loop playsinline></video>
+        <video src="vfx3.mp4" autoplay muted loop playsinline></video>
+        <video src="vfx4.mp4" autoplay muted loop playsinline></video>
+        <video src="vfx5.mp4" autoplay muted loop playsinline></video>
+        <video src="vfx6.mp4" autoplay muted loop playsinline></video>
       </div>
     </div>
   </div>
@@ -163,14 +160,14 @@ body {
 
     openBtn.addEventListener('click', () => {
       overlay.style.display = 'flex';
-      setTimeout(() => galleryBox.classList.add('show'), 10); // animasi masuk
+      setTimeout(() => galleryBox.classList.add('show'), 10);
     });
 
     closeBtn.addEventListener('click', () => {
-      galleryBox.classList.remove('show'); // animasi keluar
+      galleryBox.classList.remove('show');
       setTimeout(() => {
         overlay.style.display = 'none';
-      }, 300); // tunggu animasi selesai
+      }, 300);
     });
   </script>
 </body>
