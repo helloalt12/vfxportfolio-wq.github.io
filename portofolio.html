@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio with VFX Modal</title>
+  <style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+body, html { height: 100%; width: 100%; overflow: hidden; }
+body {
+  background: url("image.png") no-repeat center center/cover;
+  display: flex; align-items: center; justify-content: center;
+}
+.box {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  text-align: center;
+  width: 320px;
+  animation: fadeIn 0.6s ease-in-out;
+  position: relative;
+  z-index: 1;
+}
+.profile-pic {
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #007bff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  margin-bottom: 1rem;
+}
+.box h1 {
+  font-size: 1.6rem; margin-bottom: 1.2rem; color: #333;
+}
+.btn {
+  display: block; margin: 0.7rem auto;
+  padding: 0.8rem 1.2rem; width: 80%;
+  border: none; border-radius: 12px;
+  background: #007bff; color: white;
+  font-size: 1rem; font-weight: bold;
+  cursor: pointer; transition: 0.3s;
+  text-decoration: none;
+}
+.btn:hover { background: #0056b3; transform: scale(1.03); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Overlay & gallery modal styles */
+.overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none; align-items: center; justify-content: center;
+  z-index: 10;
+}
+.gallery-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  width: 80%; height: 80%;
+  overflow-y: auto;
+  position: relative;
+
+  /* animasi saat muncul */
+  transform: scale(0.8);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.gallery-box.show {
+  transform: scale(1);
+  opacity: 1;
+}
+.close-btn {
+  position: absolute;
+  top: 12px; right: 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+}
+.close-btn:hover { background: #0056b3; }
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.gallery img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+.gallery img:hover { transform: scale(1.05); }
+
+/* ✅ Responsive for mobile */
+@media (max-width: 768px) {
+  .box {
+    width: 90%;
+    padding: 1.5rem;
+  }
+  .box h1 {
+    font-size: 1.3rem;
+  }
+  .btn {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+  .gallery-box {
+    width: 95%;
+    height: 85%;
+    padding: 1rem;
+  }
+  .gallery {
+    grid-template-columns: 1fr; /* 1 kolom di HP */
+    gap: 0.7rem;
+  }
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="box">
+    <img src="circle-15.png" alt="Profile Picture" class="profile-pic">
+    <h1>Welcome to My Portfolio</h1>
+    <a class="btn" href="https://discord.com/users/1181883118756565013" target="_blank">Contact Me on Discord</a>
+    <a class="btn" id="openGallery">View My VFX Work</a>
+    <a class="btn" href="https://paypal.me/yourpaypal" target="_blank">Donate via PayPal</a>
+    <a class="btn" href="https://www.roblox.com/users/5223146360/profile" target="_blank">My Roblox Account</a>
+  </div>
+
+  <div class="overlay" id="vfxOverlay">
+    <div class="gallery-box" id="galleryBox">
+      <button class="close-btn" id="closeGallery">&times;</button>
+      <h1 style="text-align:center; margin-bottom:1rem;">My VFX Project</h1>
+      <div class="gallery">
+        <!-- contoh gambar -->
+        <img src="screen.png" alt="VFX 1">
+        <img src="vfx2.jpg" alt="VFX 2">
+        <img src="vfx3.jpg" alt="VFX 3">
+        <img src="vfx4.jpg" alt="VFX 4">
+        <img src="vfx5.jpg" alt="VFX 5">
+        <img src="vfx6.jpg" alt="VFX 6">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const openBtn = document.getElementById('openGallery');
+    const overlay = document.getElementById('vfxOverlay');
+    const galleryBox = document.getElementById('galleryBox');
+    const closeBtn = document.getElementById('closeGallery');
+
+    openBtn.addEventListener('click', () => {
+      overlay.style.display = 'flex';
+      setTimeout(() => galleryBox.classList.add('show'), 10); // animasi masuk
+    });
+
+    closeBtn.addEventListener('click', () => {
+      galleryBox.classList.remove('show'); // animasi keluar
+      setTimeout(() => {
+        overlay.style.display = 'none';
+      }, 300); // tunggu animasi selesai
+    });
+  </script>
+</body>
+</html>
